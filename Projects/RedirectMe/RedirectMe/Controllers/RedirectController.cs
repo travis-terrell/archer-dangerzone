@@ -50,7 +50,6 @@ namespace RedirectMe.Controllers
                 outgoingQuery.Add("ty", ty);
 
                 string domain = "http://treesap.me/?";
-
                 string outgoingString = incomingQuery.ToString();
 
                 string RedirectURL = domain + outgoingString;
