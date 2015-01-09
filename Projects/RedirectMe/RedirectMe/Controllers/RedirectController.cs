@@ -31,26 +31,11 @@ namespace RedirectMe.Controllers
                 string u = incomingQuery["u"];
                 string ty = incomingQuery["ty"];
 
-                Debug.Print("clientid = " + clientid);
-
                 // Query ClientDB, obtain URL
                 Dictionary<string, string> ParamsList = new Dictionary<string, string>();
                 ParamsList.Add("clientid", clientid);
 
                 string clientURL = SQLAction.GetURL(ParamsList);
-
-/*
-
-                StringBuilder builder = new StringBuilder();  // Convert list to string
-                foreach (IEnumerable<URLReturn> url in lists)
-                {
-                    builder.Append(url);
-                }
-                builder.Append("test");
-                string clientURL = builder.ToString();
-*/
-                // Print clientURL (debug)
-                Debug.Print("clientURL = " + clientURL);
 
                 // Substitute values
                 StringBuilder substitute = new StringBuilder(clientURL);
@@ -63,12 +48,18 @@ namespace RedirectMe.Controllers
                 substitute.Replace("!!ty!!", ty);
                 clientURL = substitute.ToString();
 
-                Debug.Print("clientURL after substitutions = " + clientURL);
-
                 // Send redirect to browser
                 Response.StatusCode = 302;
                 Response.Status = "302 Moved Temporarily";
-                return Redirect(clientURL);
+                if (String.IsNullOrEmpty(clientURL))
+                {
+                    return HttpNotFound("ClientID doesn't exist in database.");
+                }
+                else
+                {
+                    return Redirect(clientURL);
+                }
+                //return Redirect(clientURL);
             }
 
             //Return 404 if no variables found

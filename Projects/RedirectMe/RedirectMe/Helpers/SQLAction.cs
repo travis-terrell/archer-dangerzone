@@ -29,8 +29,6 @@ namespace RedirectMe.Helpers
                 InParams.Add(new SqlParameter(item.Key, item.Value));
             }
 
-            // SqlParameter[] inParams = { new SqlParameter("action", Action1) };
-
             using (DataTable dt = DataHelper.ExecuteDataTable("RetrieveURL", InParams.ToArray()))
             {
                 foreach (DataRow row in dt.Rows)
@@ -44,41 +42,3 @@ namespace RedirectMe.Helpers
         }
     }
 }
-
-
-
-
-/*
-            List<URLReturn> list = new List<URLReturn>();
-            using (DataTable dt = DataHelper.ExecuteDataTable("RetrieveURL", InParams.ToArray()))
-            {
-                foreach (DataRow row in dt.Rows)
-                {
-                    URLReturn newList = new URLReturn();
-                    if (row.Table.Columns.Contains("url"))
-                    {
-                        newList.url = row.Field<string>("url");
-                    }
-
-                    list.Add(newList);
-                }
-            }
-
-            return list;
-
-        }
-    }
-}
-*/
-/*       public static IEnumerable (Dictionary<string, string> Action1)
-        {
-
-            List<SqlParameter> InPrams = new List<SqlParameter>();
-
-            foreach (KeyValuePair<string, string> item in Action1)
-            {
-                InPrams.Add(new SqlParameter(item.Key, item.Value));
-            }
-
-            DataHelper.ExecuteDataTable("RetrieveURL", InPrams.ToArray());
-*/
