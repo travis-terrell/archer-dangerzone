@@ -59,11 +59,10 @@ namespace RedirectMe.Controllers
                 {
                     return Redirect(clientURL);
                 }
-                //return Redirect(clientURL);
             }
 
             //Return 404 if no variables found
-            return HttpNotFound("Where the hell are the parameters?");
+            return HttpNotFound("The URL has no parameters.  Maybe you should enter some.");
         }
     }
 }
